@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  kafka:
+    image: spotify/kafka
+    environment:
+      - ADVERTISED_HOST=172.17.0.1
+      - ADVERTISED_PORT=9092
+    ports:
+      - "2181:2181"
+      - "9092:9092"
+
+  minio:
+    image: minio/minio
+    depends_on:
+      - kafka
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_NOTIFY_KAFKA_ENABLE_target1: "on"
+      MINIO_NOTIFY_KAFKA_BROKERS_target1: "kafka:9092"
+      MINIO_NOTIFY_KAFKA_TOPIC_target1: "minio-topic"
+    volumes:
+      - minio-data:/export
+    entrypoint: >
+      /bin/sh -c "
+      curl https://raw.githubusercontent.com/harshavardhana/minio-kafka/master/wait-for.sh -o wait-for.sh;
+      chmod +x wait-for.sh;
+      ./wait-for.sh kafka:9092 -- /usr/bin/docker-entrypoint.sh minio server /export;
+      "
+volumes:
+  minio-data:
