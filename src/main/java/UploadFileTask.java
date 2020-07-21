@@ -53,7 +53,7 @@ public class UploadFileTask extends TimerTask {
         }
         log.info(notify);
         Date date = new Date();
-        String dateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        String dateStr = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
         String fileName = "mysql-log-" + dateStr;
         File file = new File("./uploadFile/" + fileName);
         try {

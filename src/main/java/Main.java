@@ -21,6 +21,9 @@ public class Main {
         props.setProperty("offset.storage", "org.apache.kafka.connect.storage.FileOffsetBackingStore");
         props.setProperty("offset.storage.file.filename", "/home/ntn/IdeaProjects/DebeziumDemo/offsets.dat");
         props.setProperty("offset.flush.interval.ms", "60000");
+        props.setProperty("key.converter.schemas.enable","false");
+        props.setProperty("value.converter.schemas.enable","false");
+
         /* begin connector properties */
         props.setProperty("database.hostname", "localhost");
         props.setProperty("database.port", "3306");
@@ -68,7 +71,7 @@ public class Main {
         // Engine is stopped when the main code is finished
 
         Timer timer = new Timer();
-        timer.schedule(uploadFileTask,0,2000);
+        timer.schedule(uploadFileTask,0,5000);
     }
 
     public static void concatLog(String notify){
