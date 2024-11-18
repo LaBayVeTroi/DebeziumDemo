@@ -50,7 +50,7 @@
     </build>
 
     <properties>
-        <version.debezium>1.2.0.Final</version.debezium>
+        <version.debezium>2.3.0.Final</version.debezium>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
